@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lime Camp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<script>
+document.documentElement.classList.add("js");
+</script>
+<style>
+:root{
+  --bg:#f7faec;
+  --surface:rgba(255,255,255,0.72);
+  --surface-strong:#fffef8;
+  --line:rgba(56,91,23,0.12);
+  --text:#1f2f17;
+  --muted:#5f6e4e;
+  --lime:#abe93a;
+  --lime-soft:#dff7ad;
+  --lime-deep:#6eb81d;
+  --lime-dark:#335c1f;
+  --gold:#ffd86d;
+  --cream:#fff8dc;
+  --shadow:0 30px 80px rgba(63,99,28,0.18);
+  --shadow-soft:0 18px 40px rgba(63,99,28,0.1);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:"Manrope",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(255,216,109,0.42), transparent 26%),
+    radial-gradient(circle at 85% 16%, rgba(171,233,58,0.32), transparent 24%),
+    linear-gradient(180deg, #fbfff2 0%, #f5f9e8 48%, #eef7d8 100%);
+  overflow-x:hidden;
+}
+
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  z-index:-2;
+  border-radius:50%;
+  filter:blur(24px);
+  opacity:0.7;
+}
+
+body::before{
+  width:360px;
+  height:360px;
+  top:10%;
+  left:-120px;
+  background:rgba(255,216,109,0.3);
+}
+
+body::after{
+  width:420px;
+  height:420px;
+  right:-140px;
+  bottom:6%;
+  background:rgba(171,233,58,0.28);
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+a{
+  color:inherit;
+}
+
+section[id]{
+  scroll-margin-top:120px;
+}
+
+.site-header{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1120px,calc(100% - 28px));
+  z-index:20;
+}
+
+.nav-shell{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:14px 18px;
+  border:1px solid rgba(255,255,255,0.55);
+  border-radius:999px;
+  background:rgba(255,255,255,0.56);
+  backdrop-filter:blur(18px);
+  box-shadow:0 16px 40px rgba(63,99,28,0.12);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:max-content;
+}
+
+.brand-mark{
+  position:relative;
+  width:52px;
+  height:52px;
+  flex:0 0 52px;
+  border-radius:50%;
+  border:4px solid #0f6c3f;
+  background:
+    radial-gradient(circle at center, #f5f7a5 0 17%, transparent 18%),
+    conic-gradient(
+      #f0f4a2 0deg 12deg,
+      #8cca3a 12deg 72deg,
+      #f0f4a2 72deg 84deg,
+      #8cca3a 84deg 144deg,
+      #f0f4a2 144deg 156deg,
+      #8cca3a 156deg 216deg,
+      #f0f4a2 216deg 228deg,
+      #8cca3a 228deg 288deg,
+      #f0f4a2 288deg 300deg,
+      #8cca3a 300deg 360deg
+    );
+  box-shadow:0 10px 24px rgba(63,99,28,0.16);
+}
+
+.brand-mark::before,
+.brand-mark::after{
+  content:"";
+  position:absolute;
+  border-radius:999px;
+  background:#0f6c3f;
+}
+
+.brand-mark::before{
+  width:6px;
+  height:6px;
+  top:18px;
+  left:15px;
+  box-shadow:16px 0 0 #0f6c3f;
+}
+
+.brand-mark::after{
+  width:16px;
+  height:8px;
+  left:14px;
+  bottom:13px;
+  border-radius:0 0 16px 16px;
+}
+
+.brand-text strong{
+  display:block;
+  font-size:1rem;
+  line-height:1;
+  color:#0f6c3f;
+}
+
+.brand-text span{
+  display:block;
+  margin-top:4px;
+  font-size:0.78rem;
+  font-weight:800;
+  color:#78b92d;
+}
+
+.nav-toggle{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:48px;
+  height:48px;
+  border:none;
+  border-radius:16px;
+  background:rgba(171,233,58,0.16);
+  color:var(--lime-dark);
+  cursor:pointer;
+}
+
+.nav-toggle-bars{
+  display:grid;
+  gap:5px;
+}
+
+.nav-toggle-bars span{
+  display:block;
+  width:18px;
+  height:2px;
+  border-radius:999px;
+  background:currentColor;
+  transition:transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.nav-links a{
+  padding:10px 14px;
+  border-radius:999px;
+  text-decoration:none;
+  font-size:0.94rem;
+  font-weight:700;
+  color:var(--lime-dark);
+  transition:background 0.25s ease, transform 0.25s ease, color 0.25s ease;
+}
+
+.nav-links a:hover{
+  background:rgba(171,233,58,0.18);
+  transform:translateY(-2px);
+}
+
+.hero{
+  width:min(1120px,calc(100% - 40px));
+  min-height:100svh;
+  margin:0 auto;
+  padding:140px 0 96px;
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(320px,0.95fr);
+  gap:28px;
+  align-items:center;
+  position:relative;
+}
+
+.hero-copy{
+  position:relative;
+  z-index:1;
+}
+
+.hero-copy::before{
+  content:"";
+  position:absolute;
+  inset:-36px auto auto -24px;
+  width:120px;
+  height:120px;
+  border-radius:34px;
+  background:rgba(255,255,255,0.35);
+  transform:rotate(12deg);
+  z-index:-1;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 16px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.7);
+  background:rgba(255,255,255,0.62);
+  box-shadow:var(--shadow-soft);
+  color:var(--lime-dark);
+  font-size:0.88rem;
+  font-weight:800;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+}
+
+.eyebrow::before{
+  content:"";
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--gold), var(--lime-deep));
+}
+
+.hero h1{
+  margin-top:24px;
+  font-family:"Unbounded",sans-serif;
+  font-size:clamp(2.2rem,5vw,4rem);
+  line-height:0.96;
+  letter-spacing:-0.05em;
+  max-width:9ch;
+}
+
+.hero h1 span{
+  color:var(--lime-dark);
+  text-shadow:0 8px 24px rgba(171,233,58,0.2);
+}
+
+.hero p{
+  margin-top:24px;
+  max-width:620px;
+  font-size:clamp(1.05rem,1.8vw,1.28rem);
+  line-height:1.75;
+  color:var(--muted);
+}
+
+.hero-actions{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:34px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:56px;
+  padding:0 28px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:800;
+  transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.btn-primary{
+  color:#203014;
+  background:linear-gradient(135deg, var(--gold), var(--lime));
+  box-shadow:0 18px 32px rgba(171,233,58,0.28);
+}
+
+.btn-secondary{
+  color:var(--lime-dark);
+  background:rgba(255,255,255,0.62);
+  border:1px solid rgba(51,92,31,0.12);
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+}
+
+.hero-points{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  margin-top:38px;
+}
+
+.point{
+  padding:18px;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,0.72);
+  background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.66));
+  box-shadow:var(--shadow-soft);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  min-height:80px;
+
+}
+
+.point strong{
+  font-size:1.1rem;
+  color:var(--lime-dark);
+}
+
+
+.hero-visual{
+  position:relative;
+  min-height:620px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hero-visual::before{
+  content:"";
+  position:absolute;
+  width:min(540px,100%);
+  aspect-ratio:1;
+  border-radius:44% 56% 55% 45% / 42% 43% 57% 58%;
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255,255,255,0.52), transparent 22%),
+    linear-gradient(160deg, rgba(255,216,109,0.8), rgba(171,233,58,0.92) 55%, rgba(111,191,26,0.9));
+  box-shadow:var(--shadow);
+  animation:floatBlob 8s ease-in-out infinite;
+}
+
+.main-figure{
+  position:relative;
+  width:min(430px,82%);
+  padding:18px;
+  border-radius:42px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.36), rgba(255,255,255,0.08));
+  border:1px solid rgba(255,255,255,0.48);
+  backdrop-filter:blur(12px);
+  transform:rotate(-6deg);
+  box-shadow:0 30px 60px rgba(44,92,31,0.2);
+}
+
+.main-figure img{
+  width:100%;
+  border-radius:28px;
+}
+
+.float-card{
+  position:absolute;
+  right:0;
+  bottom:56px;
+  width:min(235px,42%);
+  padding:12px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.88);
+  box-shadow:0 22px 48px rgba(44,92,31,0.18);
+  transform:rotate(8deg);
+  animation:floatCard 6s ease-in-out infinite;
+}
+
+.float-card img{
+  border-radius:22px;
+}
+
+.floating-note,
+.floating-badge{
+  position:absolute;
+  border-radius:26px;
+  background:rgba(255,255,255,0.76);
+  border:1px solid rgba(255,255,255,0.8);
+  backdrop-filter:blur(14px);
+  box-shadow:var(--shadow-soft);
+}
+
+.floating-note{
+  top:56px;
+  right:42px;
+  padding:16px 18px;
+  max-width:220px;
+}
+
+.floating-badge{
+  left:0;
+  bottom:132px;
+  padding:14px 16px;
+}
+
+.floating-note strong,
+.floating-badge strong{
+  display:block;
+  color:var(--lime-dark);
+  font-size:0.92rem;
+}
+
+.floating-note span,
+.floating-badge span{
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:0.84rem;
+  line-height:1.45;
+}
+
+.spark{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,255,255,0.65);
+  box-shadow:0 12px 24px rgba(255,216,109,0.24);
+}
+
+.spark-one{
+  width:18px;
+  height:18px;
+  top:90px;
+  left:48px;
+}
+
+.spark-two{
+  width:12px;
+  height:12px;
+  right:58px;
+  top:190px;
+}
+
+.section{
+  width:min(1120px,calc(100% - 40px));
+  margin:0 auto;
+  padding:0 0 110px;
+}
+
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:28px;
+  margin-bottom:28px;
+}
+
+.section-copy{
+  max-width:620px;
+}
+
+.kicker{
+  display:inline-block;
+  margin-bottom:12px;
+  color:var(--lime-dark);
+  font-size:0.82rem;
+  font-weight:800;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+}
+
+.section h2{
+  font-family:"Unbounded",sans-serif;
+  font-size:clamp(2rem,4vw,3.4rem);
+  line-height:1.06;
+  letter-spacing:-0.04em;
+}
+
+.lead{
+  color:var(--muted);
+  font-size:1.04rem;
+  line-height:1.8;
+}
+
+.section-mark{
+  padding:14px 18px;
+  border-radius:22px;
+  background:linear-gradient(135deg, rgba(255,255,255,0.92), rgba(223,247,173,0.82));
+  border:1px solid rgba(255,255,255,0.7);
+  box-shadow:var(--shadow-soft);
+  color:var(--lime-dark);
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.about-layout{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+}
+
+.story-card,
+.feature-card,
+.program-card,
+.format-card,
+.price-card,
+.contact-card,
+.link-card{
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-soft);
+}
+
+.story-card{
+  position:relative;
+  overflow:hidden;
+  padding:34px;
+  border-radius:34px;
+  background:linear-gradient(160deg, rgba(255,248,220,0.95), rgba(223,247,173,0.9));
+}
+
+.story-card::after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  right:-40px;
+  top:-60px;
+  background:rgba(255,255,255,0.34);
+}
+
+.story-card p{
+  max-width:none;
+  margin-top:18px;
+  color:#425533;
+  font-size:1.05rem;
+  line-height:1.8;
+}
+
+.story-stats{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-top:28px;
+}
+
+.mini-stat{
+  padding:18px;
+  border-radius:24px;
+  background:rgba(255,255,255,0.7);
+}
+
+.mini-stat strong{
+  display:block;
+  font-size:1.2rem;
+  color:var(--lime-dark);
+}
+
+.mini-stat span{
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:0.92rem;
+}
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px;
+  align-items:stretch;
+}
+
+.feature-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  min-height:100%;
+  height:100%;
+  padding:26px;
+  border-radius:28px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(247,251,237,0.86));
+}
+
+.feature-number{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  border-radius:14px;
+  font-weight:800;
+  color:var(--lime-dark);
+  background:linear-gradient(135deg, rgba(255,216,109,0.6), rgba(171,233,58,0.42));
+}
+
+.feature-card h3{
+  margin-top:18px;
+  font-size:1.18rem;
+}
+
+.feature-card p{
+  margin-top:10px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.program-grid,
+.price-grid,
+.contact-layout{
+  display:grid;
+  gap:22px;
+}
+
+.program-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.program-card{
+  position:relative;
+  overflow:hidden;
+  padding:30px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.8);
+}
+
+.program-card:nth-child(1){
+  background:linear-gradient(180deg, rgba(255,255,255,0.92), rgba(223,247,173,0.86));
+}
+
+.program-card:nth-child(2){
+  background:linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,248,220,0.92));
+}
+
+.program-card:nth-child(3){
+  background:linear-gradient(180deg, rgba(255,255,255,0.92), rgba(214,248,255,0.9));
+}
+
+.step-tag{
+  display:inline-flex;
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.64);
+  color:var(--lime-dark);
+  font-size:0.8rem;
+  font-weight:800;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+}
+
+.program-card h3,
+.format-card h3,
+.price-card h3,
+.contact-card h3{
+  margin-top:16px;
+  font-size:1.4rem;
+}
+
+.program-card p,
+.format-card p,
+.price-card p,
+.contact-card p{
+  margin-top:12px;
+  color:var(--muted);
+  line-height:1.75;
+}
+
+.program-list,
+.price-list{
+  list-style:none;
+  margin-top:18px;
+  display:grid;
+  gap:10px;
+}
+
+.program-list li,
+.price-list li{
+  position:relative;
+  padding-left:18px;
+  color:#445636;
+}
+
+.program-list li::before,
+.price-list li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0.72em;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--gold), var(--lime-deep));
+}
+
+.format-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(320px,1fr));
+  gap:28px;
+  max-width:980px;
+  margin:0 auto;
+  justify-content:center;
+}
+
+#dates .section-head{
+  flex-direction:column;
+  align-items:flex-start;
+  text-align:left;
+}
+
+#dates .section-copy{
+  max-width:760px;
+  width:100%;
+}
+
+.showcase-row{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px;
+  margin-top:52px;
+}
+
+.showcase-card{
+  position:relative;
+  overflow:hidden;
+  min-height:280px;
+  border-radius:32px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,0.84);
+  box-shadow:var(--shadow-soft);
+}
+
+.showcase-card img,
+.format-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.showcase-overlay{
+  position:absolute;
+  inset:auto 18px 18px 18px;
+  padding:16px 18px;
+  border-radius:24px;
+  background:rgba(255,255,255,0.8);
+  backdrop-filter:blur(12px);
+}
+
+.showcase-overlay strong{
+  display:block;
+  color:var(--lime-dark);
+  font-size:1rem;
+}
+
+.showcase-overlay span{
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  line-height:1.55;
+  font-size:0.92rem;
+}
+
+.format-card{
+  padding:30px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.82);
+  text-align:left;
+}
+
+.format-media{
+  overflow:hidden;
+  margin:-12px -12px 22px;
+  height:290px;
+  border-radius:24px;
+  box-shadow:0 18px 34px rgba(63,99,28,0.12);
+}
+
+.format-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:11px 16px;
+  border-radius:999px;
+  border:1px solid rgba(51,92,31,0.12);
+  background:linear-gradient(135deg, rgba(255,216,109,0.5), rgba(171,233,58,0.3));
+  color:#214116;
+  font-size:0.92rem;
+  font-weight:800;
+  letter-spacing:0.01em;
+  box-shadow:0 12px 24px rgba(63,99,28,0.1);
+  margin:0;
+}
+
+.format-card.highlight{
+  background:linear-gradient(160deg, rgba(255,216,109,0.92), rgba(171,233,58,0.88));
+}
+
+.format-card.highlight .format-label{
+  background:rgba(255,255,255,0.72);
+  color:#204016;
+}
+
+.format-card.highlight p,
+.format-card.highlight .format-note{
+  color:#294516;
+}
+
+.format-note{
+  margin-top:18px;
+  font-size:0.95rem;
+  color:var(--muted);
+}
+
+.price-panel{
+  padding:32px;
+  border-radius:34px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(255,255,255,0.94), rgba(246,251,232,0.92));
+  box-shadow:var(--shadow-soft);
+}
+
+.price-summary{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  margin-bottom:24px;
+}
+
+.summary-chip{
+  padding:18px 20px;
+  border-radius:24px;
+  background:rgba(171,233,58,0.14);
+}
+
+.summary-chip strong{
+  display:block;
+  color:var(--lime-dark);
+  font-size:1rem;
+}
+
+.summary-chip span{
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  line-height:1.65;
+}
+
+.price-table-wrap{
+  overflow:auto;
+  border-radius:26px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,0.98);
+}
+
+.price-table{
+  width:100%;
+  min-width:1080px;
+  border-collapse:collapse;
+}
+
+.price-table th,
+.price-table td{
+  padding:16px 14px;
+  text-align:left;
+}
+
+.price-table thead tr:first-child th{
+  background:#1b6f40;
+  color:#fff7cc;
+  font-size:0.92rem;
+  font-weight:800;
+  letter-spacing:0.02em;
+}
+
+.price-table thead tr:nth-child(2) th{
+  background:#74a85a;
+  color:#fff7cc;
+  font-size:0.86rem;
+  font-weight:800;
+}
+
+.price-table tbody tr:nth-child(odd){
+  background:rgba(171,233,58,0.1);
+}
+
+.price-table tbody tr:nth-child(even){
+  background:rgba(27,111,64,0.06);
+}
+
+.price-table tbody td{
+  border-top:1px solid rgba(51,92,31,0.08);
+  color:#26401b;
+  font-weight:700;
+}
+
+.price-table tbody td:first-child{
+  min-width:190px;
+}
+
+.shift-cell strong{
+  display:block;
+  color:var(--lime-dark);
+}
+
+.shift-cell span{
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-weight:600;
+  font-size:0.9rem;
+}
+
+.price-table .muted-cell{
+  color:var(--muted);
+  font-weight:600;
+}
+
+  .price-table .accent-cell{
+  color:#1b6f40;
+  }
+
+.price-note{
+  margin-top:20px;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.price-note strong{
+  color:var(--lime-dark);
+}
+
+.price-actions{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:24px;
+}
+
+.contact-layout{
+  grid-template-columns:minmax(0,1.05fr) minmax(300px,0.95fr);
+}
+
+.contact-card{
+  padding:34px;
+  border-radius:34px;
+  background:linear-gradient(160deg, rgba(171,233,58,0.88), rgba(255,216,109,0.86));
+}
+
+.contact-card p{
+  max-width:580px;
+  color:#30491d;
+}
+
+.contact-actions{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:24px;
+}
+
+.contact-actions .btn-secondary{
+  background:rgba(255,255,255,0.72);
+}
+
+.links-stack{
+  display:grid;
+  gap:14px;
+}
+
+.link-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:22px 24px;
+  border-radius:24px;
+  background:rgba(255,255,255,0.84);
+  text-decoration:none;
+  transition:transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.link-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 24px 40px rgba(63,99,28,0.14);
+}
+
+.link-label strong{
+  display:block;
+  font-size:1rem;
+}
+
+.link-label span{
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:0.9rem;
+}
+
+.arrow{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  color:var(--lime-dark);
+  background:rgba(171,233,58,0.14);
+  font-size:1.2rem;
+  font-weight:800;
+}
+
+.footer{
+  width:min(1120px,calc(100% - 40px));
+  margin:0 auto;
+  padding:0 0 42px;
+  color:var(--muted);
+  font-size:0.92rem;
+}
+
+.js .reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity 0.8s ease, transform 0.8s ease;
+}
+
+.js .reveal.is-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@keyframes floatBlob{
+  0%,100%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-16px) rotate(4deg);}
+}
+
+@keyframes floatCard{
+  0%,100%{transform:translateY(0) rotate(8deg);}
+  50%{transform:translateY(-12px) rotate(4deg);}
+}
+
+@media (max-width: 1080px){
+  .hero,
+  .contact-layout{
+    grid-template-columns:1fr;
+  }
+
+  .program-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .feature-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .hero{
+    padding-top:150px;
+  }
+
+  .hero-visual{
+    min-height:540px;
+    order:-1;
+  }
+
+  .hero h1{
+    max-width:12ch;
+  }
+}
+
+@media (max-width: 760px){
+  .site-header{
+    top:12px;
+    width:calc(100% - 20px);
+  }
+
+  .nav-shell{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;
+    border-radius:30px;
+    padding:14px;
+    gap:10px;
+  }
+
+  .nav-links{
+    display:none;
+    grid-column:1 / -1;
+    width:100%;
+    justify-content:flex-start;
+    flex-direction:column;
+    align-items:stretch;
+    gap:10px;
+    padding-top:6px;
+  }
+
+  .site-header.is-open .nav-links{
+    display:flex;
+  }
+
+  .site-header.is-open .nav-toggle-bars span:nth-child(1){
+    transform:translateY(7px) rotate(45deg);
+  }
+
+  .site-header.is-open .nav-toggle-bars span:nth-child(2){
+    opacity:0;
+  }
+
+  .site-header.is-open .nav-toggle-bars span:nth-child(3){
+    transform:translateY(-7px) rotate(-45deg);
+  }
+
+  .nav-links a{
+    width:100%;
+    padding:14px 16px;
+    background:rgba(255,255,255,0.84);
+    border:1px solid rgba(51,92,31,0.08);
+  }
+
+  .nav-toggle{
+    display:inline-flex;
+  }
+
+  .brand-text strong{
+    font-size:0.92rem;
+  }
+
+  .hero{
+    width:calc(100% - 24px);
+    padding:164px 0 72px;
+  }
+
+  .section,
+  .footer{
+    width:calc(100% - 24px);
+    padding-bottom:82px;
+  }
+
+  .hero-points,
+  .story-stats,
+  .feature-grid,
+  .program-grid,
+  .showcase-row,
+  .price-summary{
+    grid-template-columns:1fr;
+  }
+
+  .hero-visual{
+    min-height:460px;
+  }
+
+  .main-figure{
+    width:min(340px,82%);
+  }
+
+  .float-card{
+    width:170px;
+    right:6px;
+    bottom:36px;
+  }
+
+  .floating-note{
+    top:18px;
+    right:10px;
+    max-width:180px;
+  }
+
+  .floating-badge{
+    left:8px;
+    bottom:102px;
+  }
+
+  .section-head{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .story-card,
+  .feature-card,
+  .program-card,
+  .format-card,
+  .price-panel,
+  .contact-card{
+    padding:26px;
+  }
+
+  .format-grid{
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+
+  .format-media{
+    height:240px;
+  }
+
+  .contact-actions,
+  .hero-actions{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+
+  .price-table-wrap{
+    overflow:visible;
+    background:transparent;
+    border:none;
+  }
+
+  .price-table{
+    min-width:0;
+  }
+
+  .price-table,
+  .price-table tbody,
+  .price-table tr,
+  .price-table td{
+    display:block;
+    width:100%;
+  }
+
+  .price-table thead{
+    display:none;
+  }
+
+  .price-table tbody{
+    display:grid;
+    gap:14px;
+  }
+
+  .price-table tbody tr{
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:rgba(255,255,255,0.96);
+    box-shadow:0 14px 28px rgba(63,99,28,0.08);
+  }
+
+  .price-table tbody tr:nth-child(odd),
+  .price-table tbody tr:nth-child(even){
+    background:rgba(255,255,255,0.96);
+  }
+
+  .price-table tbody td{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    padding:12px 16px;
+    text-align:right;
+  }
+
+  .price-table tbody td::before{
+    content:attr(data-label);
+    color:var(--lime-dark);
+    font-weight:800;
+    text-align:left;
+  }
+
+  .price-table tbody td.shift-cell{
+    display:block;
+    padding:16px;
+    background:rgba(171,233,58,0.12);
+    border-top:none;
+  }
+
+  .price-table tbody td.shift-cell::before{
+    display:none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{
+    scroll-behavior:auto;
+  }
+
+  *,
+  *::before,
+  *::after{
+    animation:none !important;
+    transition:none !important;
+  }
+
+  .reveal{
+    opacity:1;
+    transform:none;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-shell">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div class="brand-text">
+        <strong>Lime Camp</strong>
+        <span>by Energy dance</span>
+      </div>
+    </div>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Відкрити меню">
+      <span class="nav-toggle-bars" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+
+    <nav class="nav-links" id="site-nav">
+      <a href="#about">Про табір</a>
+      <a href="#program">Програма</a>
+      <a href="#dates">Зміни</a>
+      <a href="#price">Прайс</a>
+      <a href="#contact">Контакти</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy reveal">
+      <div class="eyebrow">Lime Camp</div>
+      <h1>Табір, у який <span>хочеться повернутись</span></h1>
+      <p>Басейн, квести, творчість і зміни з яскравою атмосферою.</p>
+
+      <div class="hero-actions">
+        <a href="https://forms.gle/WLbZ73aqQKEhBZVt6" class="btn btn-primary" target="_blank" rel="noreferrer">Заповнити анкету</a>
+        <a href="#price" class="btn btn-secondary">Подивитися ціни</a>
+      </div>
+
+      <div class="hero-points">
+        <div class="point">
+          <strong>6-16 років</strong>
+        </div>
+        <div class="point">
+          <strong>2 формати</strong>
+        </div>
+        <div class="point">
+          <strong>Круті вожаті</strong>
+        </div>
+        <div class="point">
+          <strong>Київська область</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="spark spark-one"></div>
+      <div class="spark spark-two"></div>
+
+      <div class="floating-note">
+        <strong>Не просто табір</strong>
+        <span>Це літо з емоціями, друзями та справжнім відчуттям пригоди.</span>
+      </div>
+
+      <div class="floating-badge">
+        <strong>Lime + Hogwarts</strong>
+        <span>два формати для різного віку, характеру й настрою</span>
+      </div>
+
+      <div class="main-figure">
+        <img src="lime.png" alt="Персонаж Lime Camp">
+      </div>
+
+      <div class="float-card">
+        <img src="lime-hogwarts.png" alt="Персонаж Lime Camp у стилі Hogwarts">
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section reveal">
+    <div class="section-head">
+      <div class="section-copy">
+        <span class="kicker">Про табір</span>
+        <h2>Ключова інформація про Lime Camp</h2>
+      </div>
+      <div class="section-mark">Емоції, рух, турбота</div>
+    </div>
+
+    <div class="about-layout">
+      <article class="story-card">
+        <h3>Що важливо знати батькам</h3>
+        <p>Lime Camp поєднує активний відпочинок, теплу атмосферу і програму, в якій дитині справді цікаво бути кожного дня.</p>
+
+        <div class="story-stats">
+          <div class="mini-stat">
+            <strong>Басейн</strong>
+            <span>літній відпочинок, який діти дійсно люблять</span>
+          </div>
+          <div class="mini-stat">
+            <strong>Тематичні зміни</strong>
+            <span>класичний формат або "Лайм у Гоґвортсі"</span>
+          </div>
+          <div class="mini-stat">
+            <strong>Вечірні шоу</strong>
+            <span>дискотеки, сцена та яскраві фінали кожного дня</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-number">01</div>
+          <h3>Круті вожаті</h3>
+          <p>Команда, яка підтримує, заряджає на настрій і тримає атмосферу зміни.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-number">02</div>
+          <h3>Творчість і сцена</h3>
+          <p>Виступи, майстерності й простір, де дитина може проявити себе.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-number">03</div>
+          <h3>Спорт і квести</h3>
+          <p>Рух, командні ігри та пригоди, які не дають нудьгувати.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-number">04</div>
+          <h3>Вечірня програма</h3>
+          <p>Шоу, дискотеки та теплі вечори, які залишають найяскравіші спогади.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-number">05</div>
+          <h3>Вік і групи</h3>
+          <p>Для дітей 6–16 років. Групи формуються так, щоб дітям було комфортно дружити, грати та відчувати себе "в темі".</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-number">06</div>
+          <h3>Розташування</h3>
+          <p>Табір розташований у зеленій зоні неподалік від Бородянки, де багато простору, природи та свіжого повітря.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="showcase-row">
+      <article class="showcase-card">
+        <img src="lime.png" alt="Lime Camp персонаж">
+        <div class="showcase-overlay">
+          <strong>Lime Camp Mood</strong>
+          <span>Яскравий характер табору, активне літо і дружня атмосфера з першого дня.</span>
+        </div>
+      </article>
+
+      <article class="showcase-card">
+        <img src="lime-hogwarts.png" alt="Lime Camp Hogwarts персонаж">
+        <div class="showcase-overlay">
+          <strong>Hogwarts Mood</strong>
+          <span>Окремий тематичний формат для дітей, які люблять магію, сюжет і пригоди.</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="program" class="section reveal">
+    <div class="section-head">
+      <div class="section-copy">
+        <span class="kicker">Програма</span>
+        <h2>Що дитина реально отримує за одну зміну</h2>
+      </div>
+      <div class="section-mark">Дні, наповнені емоціями</div>
+    </div>
+
+    <div class="program-grid">
+      <article class="program-card">
+        <span class="step-tag">Ранок</span>
+        <h3>Старт із руху</h3>
+        <p>Легкий активний старт, щоб дитина включилась у день із настроєм.</p>
+        <ul class="program-list">
+          <li>спортивні активності</li>
+          <li>басейн і рухливі ігри</li>
+          <li>командні знайомства</li>
+        </ul>
+      </article>
+
+      <article class="program-card">
+        <span class="step-tag">День</span>
+        <h3>Сюжет і творчість</h3>
+        <p>Квести, майстерності й формати, в яких цікаво брати участь до кінця.</p>
+        <ul class="program-list">
+          <li>квести та тематичні місії</li>
+          <li>творчі формати та майстерності</li>
+          <li>ігри з вау-ефектом</li>
+        </ul>
+      </article>
+
+      <article class="program-card">
+        <span class="step-tag">Вечір</span>
+        <h3>Емоції, які залишаються</h3>
+        <p>Шоу, сцена і вечірня атмосфера, заради якої діти хочуть повернутися ще.</p>
+        <ul class="program-list">
+          <li>дискотеки та сцена</li>
+          <li>командні вечірні програми</li>
+          <li>атмосферні фінали дня</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="dates" class="section reveal">
+    <div class="section-head">
+      <div class="section-copy">
+        <span class="kicker">Зміни</span>
+        <h2>Оберіть формат зміни</h2>
+      </div>
+      <div class="section-mark">Lime Camp + Hogwarts</div>
+    </div>
+
+    <div class="format-grid">
+      <article class="format-card">
+        <span class="format-label">Повернення в "Лайм"</span>
+        <div class="format-media">
+          <img src="лайм .jpg" alt="Повернення в Лайм">
+        </div>
+        <h3>Більше драйву та літнього руху</h3>
+        <p>Для дітей, яким подобається активний темп, багато руху, команда, сцена та насичені літні дні.</p>
+        <div class="format-note">Більше енергії, спорту, басейну, шоу і живого драйву.</div>
+      </article>
+
+      <article class="format-card highlight">
+        <span class="format-label">Hogwarts Mood</span>
+        <div class="format-media">
+          <img src="лайм г.jpg" alt="Hogwarts Mood персонаж">
+        </div>
+        <h3>Магія, сюжет і рольова атмосфера</h3>
+        <p>Для дітей, які люблять історії, тематичних персонажів, загадки, квести та атмосферу чарівної пригоди.</p>
+        <div class="format-note">Більше сюжету, магії та емоційної гри всередині зміни.</div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="price" class="section reveal">
+    <div class="section-head">
+      <div class="section-copy">
+        <span class="kicker">Прайс</span>
+        <h2>Ціни</h2>
+      </div>
+      <div class="section-mark">Усі базові ціни та знижки</div>
+    </div>
+
+    <div class="price-panel">
+      <div class="price-summary">
+        <div class="summary-chip">
+          <strong>Стандарт</strong>
+          <span>Для дітей, які не відвідують студію <strong>Energy dance</strong>.</span>
+        </div>
+        <div class="summary-chip">
+          <strong>Energy dance</strong>
+          <span>Для учасників студії діє знижка на всі зміни та на пакет із двох змін.</span>
+        </div>
+      </div>
+
+      <div class="price-table-wrap">
+        <table class="price-table">
+          <thead>
+            <tr>
+              <th rowspan="2">Зміна</th>
+              <th rowspan="2">Тривалість</th>
+              <th colspan="3">Стандарт</th>
+              <th colspan="3">Energy dance</th>
+            </tr>
+            <tr>
+              <th>Звичайна ціна</th>
+              <th>Раннє до 1 травня</th>
+              <th>Найнижча до 1 березня</th>
+              <th>Звичайна ціна</th>
+              <th>Раннє до 1 травня</th>
+              <th>Найнижча до 1 березня</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="shift-cell" data-label="Зміна"><strong>I зміна</strong><span>04.07-12.07</span></td>
+              <td class="muted-cell" data-label="Тривалість">9 днів</td>
+              <td data-label="Стандарт">16 000 грн</td>
+              <td class="accent-cell" data-label="Стандарт до 1 травня">15 000 грн</td>
+              <td class="accent-cell" data-label="Стандарт до 1 березня">14 000 грн</td>
+              <td data-label="Energy dance">14 000 грн</td>
+              <td class="accent-cell" data-label="Energy до 1 травня">13 000 грн</td>
+              <td class="accent-cell" data-label="Energy до 1 березня">12 000 грн</td>
+            </tr>
+            <tr>
+              <td class="shift-cell" data-label="Зміна"><strong>II зміна</strong><span>14.07-23.07</span></td>
+              <td class="muted-cell" data-label="Тривалість">10 днів</td>
+              <td data-label="Стандарт">16 000 грн</td>
+              <td class="accent-cell" data-label="Стандарт до 1 травня">15 000 грн</td>
+              <td class="accent-cell" data-label="Стандарт до 1 березня">14 000 грн</td>
+              <td data-label="Energy dance">14 000 грн</td>
+              <td class="accent-cell" data-label="Energy до 1 травня">13 000 грн</td>
+              <td class="accent-cell" data-label="Energy до 1 березня">12 000 грн</td>
+            </tr>
+            <tr>
+              <td class="shift-cell" data-label="Зміна"><strong>III зміна</strong><span>25.07-02.08</span></td>
+              <td class="muted-cell" data-label="Тривалість">9 днів</td>
+              <td data-label="Стандарт">16 000 грн</td>
+              <td class="accent-cell" data-label="Стандарт до 1 травня">15 000 грн</td>
+              <td class="accent-cell" data-label="Стандарт до 1 березня">14 000 грн</td>
+              <td data-label="Energy dance">14 000 грн</td>
+              <td class="accent-cell" data-label="Energy до 1 травня">13 000 грн</td>
+              <td class="accent-cell" data-label="Energy до 1 березня">12 000 грн</td>
+            </tr>
+            <tr>
+              <td class="shift-cell" data-label="Зміна"><strong>IV зміна</strong><span>04.08-13.08</span></td>
+              <td class="muted-cell" data-label="Тривалість">9 днів</td>
+              <td data-label="Стандарт">16 000 грн</td>
+              <td class="accent-cell" data-label="Стандарт до 1 травня">15 000 грн</td>
+              <td class="accent-cell" data-label="Стандарт до 1 березня">14 000 грн</td>
+              <td data-label="Energy dance">14 000 грн</td>
+              <td class="accent-cell" data-label="Energy до 1 травня">13 000 грн</td>
+              <td class="accent-cell" data-label="Energy до 1 березня">12 000 грн</td>
+            </tr>
+            <tr>
+              <td class="shift-cell" data-label="Зміна"><strong>Дві зміни</strong><span>будь-які дві зміни</span></td>
+              <td class="muted-cell" data-label="Тривалість">2 заїзди</td>
+              <td data-label="Стандарт">29 000 грн</td>
+              <td class="accent-cell" data-label="Стандарт до 1 травня">27 000 грн</td>
+              <td class="accent-cell" data-label="Стандарт до 1 березня">25 000 грн</td>
+              <td data-label="Energy dance">25 000 грн</td>
+              <td class="accent-cell" data-label="Energy до 1 травня">23 000 грн</td>
+              <td class="accent-cell" data-label="Energy до 1 березня">21 000 грн</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="price-note"><strong>Важливо:</strong> I та III зміни мають тематику "Лайм у Гоґвортсі". У таблиці вже вказані стандартні ціни, знижка для учасників <strong>Energy dance</strong> і вартість раннього бронювання до 1 травня.</p>
+
+      <div class="price-actions">
+        <a href="https://forms.gle/WLbZ73aqQKEhBZVt6" class="btn btn-primary" target="_blank" rel="noreferrer">Заповнити анкету</a>
+        <a href="#contact" class="btn btn-secondary">Зв'язатися з менеджером</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section reveal">
+    <div class="section-head">
+      <div class="section-copy">
+        <span class="kicker">Контакти</span>
+        <h2>Напишіть нам, і ми підберемо зміну під вашу дитину</h2>
+      </div>
+      <div class="section-mark">Пишіть у зручний месенджер</div>
+    </div>
+
+    <div class="contact-layout">
+      <article class="contact-card">
+        <h3>Зв'яжіться з нами будь-яким зручним способом</h3>
+        <p>Напишіть або подзвоніть, щоб дізнатися про формат, вікову групу, вартість і найкращу зміну саме для вашої дитини.</p>
+
+        <div class="contact-actions">
+          <a href="https://forms.gle/WLbZ73aqQKEhBZVt6" class="btn btn-primary" target="_blank" rel="noreferrer">Заповнити анкету</a>
+          <a href="tel:+380935675813" class="btn btn-secondary">Подзвонити</a>
+          <a href="https://t.me/tabir_lime" class="btn btn-secondary" target="_blank" rel="noreferrer">Написати в Telegram</a>
+        </div>
+      </article>
+
+      <div class="links-stack">
+        <a class="link-card" href="tel:+380935675813">
+          <div class="link-label">
+            <strong>Телефон</strong>
+            <span>+38 093 567 58 13</span>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <a class="link-card" href="https://t.me/tabir_lime" target="_blank" rel="noreferrer">
+          <div class="link-label">
+            <strong>Telegram</strong>
+            <span>@tabir_lime</span>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <a class="link-card" href="https://instagram.com/lime_camp_by_energy_dance" target="_blank" rel="noreferrer">
+          <div class="link-label">
+            <strong>Instagram</strong>
+            <span>lime_camp_by_energy_dance</span>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <a class="link-card" href="https://tiktok.com/@lime_by_energy_dance" target="_blank" rel="noreferrer">
+          <div class="link-label">
+            <strong>TikTok</strong>
+            <span>@lime_by_energy_dance</span>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  Lime Camp — літній табір з характером, емоціями та змінами, куди хочеться повернутися.
+</footer>
+
+<script>
+const revealElements = document.querySelectorAll(".reveal");
+const siteHeader = document.querySelector(".site-header");
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+if (siteHeader && navToggle) {
+  navToggle.addEventListener("click", () => {
+    const isOpen = siteHeader.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      siteHeader.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+}
+
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.18
+  });
+
+  revealElements.forEach((element) => {
+    observer.observe(element);
+  });
+} else {
+  revealElements.forEach((element) => {
+    element.classList.add("is-visible");
+  });
+}
+</script>
+
+</body>
+</html>
