@@ -1,0 +1,13 @@
+name = "lime-camp"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "./public"
+
+# Твої id (з команд d1 create і kv namespace create). Назви DB та PHOTOS змінювати не можна.
+[[d1_databases]]
+binding = "DB"
+database_name = "lime-db"
+database_id = "ab83ede6-e10c-42a2-9a41-e088da8b3a5c"
+
+[[kv_namespaces]]
+binding = "PHOTOS"
+id = "98922b10828e4e42a0e24e227799e932"
